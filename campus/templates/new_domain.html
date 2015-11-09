@@ -1,0 +1,13 @@
+<form method="post">
+{% csrf_token %}
+    <label>Subdomain:</label>
+    <input type="text" name="sub_domain" value="{{sub_domain}}" >
+    <br />
+    <label>Campus Name:</label>
+    <input type="text" name="campus_name" value="{{campus_name}}"  >
+    <br />
+    <input type="checkbox" name="delete" >
+    <label>删除</label>
+    <br />
+    <input type="submit" value="确定">
+</form>

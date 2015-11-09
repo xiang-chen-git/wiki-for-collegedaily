@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>colleage wiki</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/base.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/index.css">
+	<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var college_total = $('#college-list > li').size();
+			if(college_total < 6){
+				$('#college-list').width(140 * college_total);
+			}
+		});
+	</script>
+</head>
+<body>
+	<table width="100%" height="90%">
+		<tr>
+			<td vertical-align="middle">
+				<div id="header">
+					<img src="/static/img/logo-white.png" alt="Logo" />
+					<h1>COLLEGEWIKI</h1>
+				</div>
+				<ul id="college-list" class="clearfix">
+					<li>
+						<a class="college-link" target="_blank" href="http://www.cornell.edu/">
+							<div class="cover-box">
+								<img src="/static/img/college/cornell.png" width="77" height="77" alt="College" />
+							</div>
+							<h2 class="college-name">Cornell</h2>
+						</a>
+					</li>
+					<li>
+						<a class="college-link" target="_blank" href="http://www.purdue.edu/">
+							<div class="cover-box">
+								<img src="/static/img/college/purdue.png" width="77" height="77" alt="College" />
+							</div>
+							<h2 class="college-name">Purdue</h2>
+						</a>
+					</li>
+					<li>
+						<a class="college-link" target="_blank" href="http://www.stanford.edu">
+							<div class="cover-box">
+								<img src="/static/img/college/Stanford.png" width="77" height="77" alt="College" />
+							</div>
+							<h2 class="college-name">Stanford</h2>
+						</a>
+					</li>
+					<li>
+						<a class="college-link" target="_blank" href="http://www.universityofcalifornia.edu">
+							<div class="cover-box">
+								<img src="/static/img/college/UC.png" width="77" height="77" alt="College" />
+							</div>
+							<h2 class="college-name">UC</h2>
+						</a>
+					</li>
+                    {% for univ in univs %}
+					<li>
+						<a class="college-link" target="_blank" href="{{univ.domain}}">
+							<div class="cover-box">
+								<img src="{{univ.logo_url}}" width="77" height="77" alt="College" />
+							</div>
+							<h2 class="college-name">{{univ.campus_name_en}}</h2>
+						</a>
+					</li>
+                    {% endfor %}
+				</ul>
+			</td>
+		</tr>
+	</table>
+	<div id="footer">
+		<p style="margin-top:50px">
+			<a href="#">About Us</a>
+			<span style="margin-left:50px">All Rights Reserved. CollegeCloud, Inc. 2013&copy</span>
+		</p>
+	</div>
+</body>
+</html>
