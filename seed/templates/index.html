@@ -1,0 +1,203 @@
+﻿{% extends "base.html" %}		
+{% block title %}CollegeWiki{% endblock %}
+{% block main %}
+				<div id="content" class="content full">
+					<div class="slider-container light">
+						<div class="slider" id="revolutionSlider">
+							<ul>
+								<li data-transition="fade" data-slotamount="10" data-masterspeed="300">
+									<img src="/media/univ/background.jpg" data-fullwidthcentering="on" alt="">
+										<div class="caption lfl"
+											 data-x="40"
+											 data-y="90"
+											 data-speed="300"
+											 data-start="0"
+											 data-easing="easeOutExpo">
+										
+											<div class="span4">
+												<h2 class="short"><strong class="inverted">这里收录着关于本校的一切知识</strong></h2>												
+											</div>									 
+										</div>
+
+										<div class="caption sft stb"
+											 data-x="90"
+											 data-y="190"
+											 data-speed="300"
+											 data-start="100"
+											 data-easing="easeOutExpo"> 											 
+											 <h4><strong class="inverted">教授?</strong> <strong class="inverted">课程?</strong> <strong class="inverted">学校政策?</strong> </h4>
+										</div>
+
+										<div class="caption sft stb"
+											 data-x="60"
+											 data-y="280"
+											 data-speed="500"
+											 data-start="1000"
+											 data-easing="easeOutExpo">
+											 <h2><strong class="inverted"> − 在CollegeWiki找到你想要的最靠谱的答案！</strong> </h2>
+										</div>										
+
+								</li>
+							</ul>
+						</div>
+					</div>					
+
+					<div class="container" style="margin-top: 30px;">
+						<div class="row center">
+							<div class="span12">
+								<h2 class="short"><strong class="inverted">CollegeWiki</strong> 严谨详实靠谱的校园百科 </h2>
+								<p class="featured lead">
+                CollegeWiki是一个封闭的校园百科平台，完全遵照维基百科的编写模式和规则，由在校中国留学生自发创建和编辑，致力于将知识更好更便捷地分享给留学中的同学
+								</p>
+							</div>
+						</div>
+                        <div class="row pull-top span3">
+                            <div >
+                                <div class="feature-box" style="margin-bottom:10px;">
+                                    <div class="feature-box-info">
+                                        <h3 class="shorter">热门词条</h3>
+                                    </div>
+                                </div>
+                            </div>
+						{% for entry in view_most %}
+							<div>
+								<div class="feature-box">
+									<div class="feature-box-icon">
+										<i class="icon-group"></i>
+									</div>
+									<div class="feature-box-info">
+									    <a href="{% url 'wiki:show' entry_id=entry.entry.pk %}" >
+										<h4 class="shorter">{{entry.entry.title}}</h4>
+										</a>
+										<p class="tall">{{entry.description|truncatechars:16|safe}}</p>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+                        </div>
+                        <div class="row pull-top span3">
+                            <div >
+                                <div class="feature-box" style="margin-bottom:10px;">
+                                    <div class="feature-box-info">
+                                        <h3 class="shorter">最靠谱词条</h3>
+                                    </div>
+                                </div>
+                            </div>
+						{% for entry in kaopu_most %}
+							<div>
+								<div class="feature-box">
+									<div class="feature-box-icon">
+										<i class="icon-group"></i>
+									</div>
+									<div class="feature-box-info">
+									    <a href="{% url 'wiki:show' entry_id=entry.entry.pk %}" >
+										<h4 class="shorter">{{entry.entry.title}}</h4>
+										</a>
+										<p class="tall">{{entry.description|truncatechars:16|safe}}</p>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+                        </div>
+                        <div class="row pull-top span3">
+                            <div >
+                                <div class="feature-box" style="margin-bottom:10px;">
+                                    <div class="feature-box-info">
+                                        <h3 class="shorter">最新词条</h3>
+                                    </div>
+                                </div>
+                            </div>
+						{% for entry in recent_most %}
+							<div>
+								<div class="feature-box">
+									<div class="feature-box-icon">
+										<i class="icon-group"></i>
+									</div>
+									<div class="feature-box-info">
+									    <a href="{% url 'wiki:show' entry_id=entry.entry.pk %}" >
+										<h4 class="shorter">{{entry.entry.title}}</h4>
+										</a>
+										<p class="tall">{{entry.description|truncatechars:16|safe}}</p>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+                        </div>
+                        <div class="row pull-top span3">
+                            <div >
+                                <div class="feature-box" style="margin-bottom:10px;">
+                                    <div class="feature-box-info">
+                                        <h3 class="shorter">最靠谱编辑者</h3>
+                                    </div>
+                                </div>
+                            </div>
+						{% for editor in niu_most %}
+							<div>
+								<div class="feature-box">
+									<div class="feature-box-icon">
+										<i class="icon-group"></i>
+									</div>
+									<div class="feature-box-info">
+									    <a href="{% url 'ua:profile' user_id=editor.editor.pk %}" >
+										<h4 class="shorter">{{editor.editor.nickname}}</h4>
+										</a>
+										<p class="tall">{{editor.editor.status|truncatechars:16}}</p>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+                        </div>
+						<div class="row pull-top">
+						{% for tag in hot_tags %}
+							<div class="span3">
+								<div class="feature-box">
+									<div class="feature-box-icon">
+										<i class="icon-group"></i>
+									</div>
+									<div class="feature-box-info">
+									    <a href="{% url 'wiki:search_tag' %}?tag={{tag.tag.tag}}" >
+										<h4 class="shorter">{{tag.tag.tag}}</h4>
+										</a>
+										<p class="tall">{{tag.description}}</p>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+
+					</div>
+
+					<div class="container">
+
+						<div class="row featured-boxes">
+							<div class="span4">
+								<div class="featured-box featured-box-primary">
+									<div class="box-content">
+										<i class="image-icon user big"></i>
+										<h4>课程与学术</h4>
+										<p>每个词条均由留学圈的资深人士撰写，100%保证专业与准确<a href="/wiki/search_by_tag/?query=课程与学术" class="learn-more">learn more <i class="icon-angle-right"></i></a></p>
+									</div>
+								</div>
+							</div>
+							<div class="span4">
+								<div class="featured-box featured-box-secundary">
+									<div class="box-content">
+										<i class="icon icon-book"></i>
+										<h4>校园生活</h4>
+										<p>留学维基的词条按照学校与地区进行分类，确保资讯的新鲜与0距离<a href="/wiki/search_by_tag/?query=校园生活" class="learn-more">learn more <i class="icon-angle-right"></i></a></p>
+									</div>
+								</div>
+							</div>
+							<div class="span4">
+								<div class="featured-box featured-box-tertiary">
+									<div class="box-content">
+										<i class="icon icon-trophy"></i>
+										<h4>职业发展</h4>
+										<p>初入职场，如何寻找自己的方向<a href="/wiki/search_by_tag/?query=职业发展" class="learn-more">learn more <i class="icon-angle-right"></i></a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+{% endblock %}

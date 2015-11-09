@@ -1,0 +1,455 @@
+{% extends "base.html" %}
+{% block title %}编辑个人资料 - 留学维基{% endblock %}
+{% block main %}
+<div class="container" style="margin-top: 30px; min-height: 500px;">
+	<div style="margin: 0 auto; width: 45%; padding-top: 40px;" class="team-item thumbnail">
+		<form action='{% url 'ua:edit' %}' method='post' name='UserForm' enctype="multipart/form-data" class="form-horizontal">
+			{% csrf_token %}
+			<h4 class="text-center">{{ wiki_user.nickname }}</h4>
+			<div class="control-group">
+				<label class="control-label" >头像照片：</label>
+				<div class="controls">
+					{% if wiki_user.head_icon %}
+					<img alt="" src="{{ wiki_user.head_icon.url }}" style="width:200px; height:200px">
+					{% else %}    
+					<img alt="" src="/static/img/team/head_icon.png" style="width:200px; height:200px">
+					{% endif %}    
+					<br />
+					<span class="btn fileinput-button" style="position:relative">
+						<i class="glyphicon glyphicon-plus"></i>
+						<span>点击上传头像</span>
+						<input type="file" name="head_icon" style="position:absolute; cursor:pointer; top:0px; width:120px; height:35px; left:0px; z-index:100; opacity:0;">
+					</span>
+				</div>
+			</div>		
+			<div class="control-group">
+				<label class="control-label">个性签名：</label>
+				<div class="controls">
+					<input type="text" name="status" class="border-radius-none input-med" placeholder="例：我爱我的范" value="{{ wiki_user.status }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >学校：</label>
+				<div class="controls">
+					<input type="text" name="hometown" class="border-radius-none input-med" disabled="true" placeholder="例：美国东部" value="{{ wiki_user.campus_name }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >专业 Major：</label>
+				<div class="controls">
+					<!--input type="text" name="major" class="border-radius-none input-med" placeholder="Ex: Economics" value="{{ wiki_user.major}}"-->
+					<select name="major">
+<option value="Accounting" {% if wiki_user.major == "Accounting" %} selected {% endif %}>Accounting</option>
+<option value="Actuarial Science" {% if wiki_user.major == "Actuarial Science" %} selected {% endif %}>Actuarial Science</option>
+<option value="Aeronautical and Astronautical Engineering" {% if wiki_user.major == "Aeronautical and Astronautical Engineering" %} selected {% endif %}>Aeronautical and Astronautical Engineering</option>
+<option value="African American and African Studies" {% if wiki_user.major == "African American and African Studies" %} selected {% endif %}>African American and African Studies</option>
+<option value="Agribusiness and Applied Economics" {% if wiki_user.major == "Agribusiness and Applied Economics" %} selected {% endif %}>Agribusiness and Applied Economics</option>
+<option value="Agricultural Communication" {% if wiki_user.major == "Agricultural Communication" %} selected {% endif %}>Agricultural Communication</option>
+<option value="Agricultural Systems Management" {% if wiki_user.major == "Agricultural Systems Management" %} selected {% endif %}>Agricultural Systems Management</option>
+<option value="Agriculture, Exploring" {% if wiki_user.major == "Agriculture, Exploring" %} selected {% endif %}>Agriculture, Exploring</option>
+<option value="Agriscience Education" {% if wiki_user.major == "Agriscience Education" %} selected {% endif %}>Agriscience Education</option>
+<option value="Ancient History and Classics" {% if wiki_user.major == "Ancient History and Classics" %} selected {% endif %}>Ancient History and Classics</option>
+<option value="Animal Sciences" {% if wiki_user.major == "Animal Sciences" %} selected {% endif %}>Animal Sciences</option>
+<option value="Anthropological Sciences" {% if wiki_user.major == "Anthropological Sciences" %} selected {% endif %}>Anthropological Sciences</option>
+<option value="Anthropology" {% if wiki_user.major == "Anthropology" %} selected {% endif %}>Anthropology</option>
+<option value="Arabic" {% if wiki_user.major == "Arabic" %} selected {% endif %}>Arabic</option>
+<option value="Architecture" {% if wiki_user.major == "Architecture" %} selected {% endif %}>Architecture</option>
+<option value="Art" {% if wiki_user.major == "Art" %} selected {% endif %}>Art</option>
+<option value="Art Education" {% if wiki_user.major == "Art Education" %} selected {% endif %}>Art Education</option>
+<option value="Arts and Sciences General Information" {% if wiki_user.major == "Arts and Sciences General Information" %} selected {% endif %}>Arts and Sciences General Information</option>
+<option value="Arts and Sciences, Undecided" {% if wiki_user.major == "Arts and Sciences, Undecided" %} selected {% endif %}>Arts and Sciences, Undecided</option>
+<option value="Arts Management" {% if wiki_user.major == "Arts Management" %} selected {% endif %}>Arts Management</option>
+<option value="Astronomy and Astrophysics" {% if wiki_user.major == "Astronomy and Astrophysics" %} selected {% endif %}>Astronomy and Astrophysics</option>
+<option value="Athletic Training" {% if wiki_user.major == "Athletic Training" %} selected {% endif %}>Athletic Training</option>
+<option value="Atmospheric Sciences" {% if wiki_user.major == "Atmospheric Sciences" %} selected {% endif %}>Atmospheric Sciences</option>
+<option value="Aviation" {% if wiki_user.major == "Aviation" %} selected {% endif %}>Aviation</option>
+<option value="Biochemistry" {% if wiki_user.major == "Biochemistry" %} selected {% endif %}>Biochemistry</option>
+<option value="Biology" {% if wiki_user.major == "Biology" %} selected {% endif %}>Biology</option>
+<option value="Biomedical Engineering" {% if wiki_user.major == "Biomedical Engineering" %} selected {% endif %}>Biomedical Engineering</option>
+<option value="Biomedical Science" {% if wiki_user.major == "Biomedical Science" %} selected {% endif %}>Biomedical Science</option>
+<option value="Business Administration General Information" {% if wiki_user.major == "Business Administration General Information" %} selected {% endif %}>Business Administration General Information</option>
+<option value="Business Administration, Undecided" {% if wiki_user.major == "Business Administration, Undecided" %} selected {% endif %}>Business Administration, Undecided</option>
+<option value="Chemical Engineering" {% if wiki_user.major == "Chemical Engineering" %} selected {% endif %}>Chemical Engineering</option>
+<option value="Chemistry" {% if wiki_user.major == "Chemistry" %} selected {% endif %}>Chemistry</option>
+<option value="Chinese" {% if wiki_user.major == "Chinese" %} selected {% endif %}>Chinese</option>
+<option value="City and Regional Planning" {% if wiki_user.major == "City and Regional Planning" %} selected {% endif %}>City and Regional Planning</option>
+<option value="Civil Engineering" {% if wiki_user.major == "Civil Engineering" %} selected {% endif %}>Civil Engineering</option>
+<option value="Classics" {% if wiki_user.major == "Classics" %} selected {% endif %}>Classics</option>
+<option value="Communication" {% if wiki_user.major == "Communication" %} selected {% endif %}>Communication</option>
+<option value="Community Leadership" {% if wiki_user.major == "Community Leadership" %} selected {% endif %}>Community Leadership</option>
+<option value="Comparative Studies" {% if wiki_user.major == "Comparative Studies" %} selected {% endif %}>Comparative Studies</option>
+<option value="Computer and Information Science" {% if wiki_user.major == "Computer and Information Science" %} selected {% endif %}>Computer and Information Science</option>
+<option value="Computer Science and Engineering" {% if wiki_user.major == "Computer Science and Engineering" %} selected {% endif %}>Computer Science and Engineering</option>
+<option value="Construction Systems Management" {% if wiki_user.major == "Construction Systems Management" %} selected {% endif %}>Construction Systems Management</option>
+<option value="Consumer and Family Financial Services" {% if wiki_user.major == "Consumer and Family Financial Services" %} selected {% endif %}>Consumer and Family Financial Services</option>
+<option value="Criminology and Criminal Justice Studies" {% if wiki_user.major == "Criminology and Criminal Justice Studies" %} selected {% endif %}>Criminology and Criminal Justice Studies</option>
+<option value="Culinary Science" {% if wiki_user.major == "Culinary Science" %} selected {% endif %}>Culinary Science</option>
+<option value="Dance" {% if wiki_user.major == "Dance" %} selected {% endif %}>Dance</option>
+<option value="Dental Hygiene" {% if wiki_user.major == "Dental Hygiene" %} selected {% endif %}>Dental Hygiene</option>
+<option value="Dental Hygiene (baccalaureate completion program)" {% if wiki_user.major == "Dental Hygiene (baccalaureate completion program)" %} selected {% endif %}>Dental Hygiene (baccalaureate completion program)</option>
+<option value="Early and Middle Childhood Studies" {% if wiki_user.major == "Early and Middle Childhood Studies" %} selected {% endif %}>Early and Middle Childhood Studies</option>
+<option value="Earth Sciences" {% if wiki_user.major == "Earth Sciences" %} selected {% endif %}>Earth Sciences</option>
+<option value="Economics" {% if wiki_user.major == "Economics" %} selected {% endif %}>Economics</option>
+<option value="Education - Early Childhood Education" {% if wiki_user.major == "Education - Early Childhood Education" %} selected {% endif %}>Education - Early Childhood Education</option>
+<option value="Education - Foreign Language Education" {% if wiki_user.major == "Education - Foreign Language Education" %} selected {% endif %}>Education - Foreign Language Education</option>
+<option value="Education - Integrated Language Arts/English Education" {% if wiki_user.major == "Education - Integrated Language Arts/English Education" %} selected {% endif %}>Education - Integrated Language Arts/English Education</option>
+<option value="Education - Middle Childhood Education" {% if wiki_user.major == "Education - Middle Childhood Education" %} selected {% endif %}>Education - Middle Childhood Education</option>
+<option value="Education - Science and Mathematics Education" {% if wiki_user.major == "Education - Science and Mathematics Education" %} selected {% endif %}>Education - Science and Mathematics Education</option>
+<option value="Education - Special Education" {% if wiki_user.major == "Education - Special Education" %} selected {% endif %}>Education - Special Education</option>
+<option value="Education - Teaching English to Speakers of Other Languages" {% if wiki_user.major == "Education - Teaching English to Speakers of Other Languages" %} selected {% endif %}>Education - Teaching English to Speakers of Other Languages</option>
+<option value="Education - Technical Education and Training" {% if wiki_user.major == "Education - Technical Education and Training" %} selected {% endif %}>Education - Technical Education and Training</option>
+<option value="Electrical and Computer Engineering" {% if wiki_user.major == "Electrical and Computer Engineering" %} selected {% endif %}>Electrical and Computer Engineering</option>
+<option value="Engineering General Information" {% if wiki_user.major == "Engineering General Information" %} selected {% endif %}>Engineering General Information</option>
+<option value="Engineering Physics" {% if wiki_user.major == "Engineering Physics" %} selected {% endif %}>Engineering Physics</option>
+<option value="Engineering, Undecided" {% if wiki_user.major == "Engineering, Undecided" %} selected {% endif %}>Engineering, Undecided</option>
+<option value="English" {% if wiki_user.major == "English" %} selected {% endif %}>English</option>
+<option value="Entomology" {% if wiki_user.major == "Entomology" %} selected {% endif %}>Entomology</option>
+<option value="Environment and Natural Resources, Undecided" {% if wiki_user.major == "Environment and Natural Resources, Undecided" %} selected {% endif %}>Environment and Natural Resources, Undecided</option>
+<option value="Environment, Economy, Development, and Sustainability" {% if wiki_user.major == "Environment, Economy, Development, and Sustainability" %} selected {% endif %}>Environment, Economy, Development, and Sustainability</option>
+<option value="Environmental Engineering" {% if wiki_user.major == "Environmental Engineering" %} selected {% endif %}>Environmental Engineering</option>
+<option value="Environmental Policy and Decision Making" {% if wiki_user.major == "Environmental Policy and Decision Making" %} selected {% endif %}>Environmental Policy and Decision Making</option>
+<option value="Environmental Science" {% if wiki_user.major == "Environmental Science" %} selected {% endif %}>Environmental Science</option>
+<option value="Evolution and Ecology" {% if wiki_user.major == "Evolution and Ecology" %} selected {% endif %}>Evolution and Ecology</option>
+<option value="Exercise Science Education" {% if wiki_user.major == "Exercise Science Education" %} selected {% endif %}>Exercise Science Education</option>
+<option value="Exploration, Undecided" {% if wiki_user.major == "Exploration, Undecided" %} selected {% endif %}>Exploration, Undecided</option>
+<option value="Family and Consumer Sciences Education" {% if wiki_user.major == "Family and Consumer Sciences Education" %} selected {% endif %}>Family and Consumer Sciences Education</option>
+<option value="Fashion and Retail Studies" {% if wiki_user.major == "Fashion and Retail Studies" %} selected {% endif %}>Fashion and Retail Studies</option>
+<option value="Film Studies" {% if wiki_user.major == "Film Studies" %} selected {% endif %}>Film Studies</option>
+<option value="Finance" {% if wiki_user.major == "Finance" %} selected {% endif %}>Finance</option>
+<option value="Food Business Management" {% if wiki_user.major == "Food Business Management" %} selected {% endif %}>Food Business Management</option>
+<option value="Food Science and Technology" {% if wiki_user.major == "Food Science and Technology" %} selected {% endif %}>Food Science and Technology</option>
+<option value="Food, Agricultural, and Biological Engineering" {% if wiki_user.major == "Food, Agricultural, and Biological Engineering" %} selected {% endif %}>Food, Agricultural, and Biological Engineering</option>
+<option value="Forestry, Fisheries, and Wildlife" {% if wiki_user.major == "Forestry, Fisheries, and Wildlife" %} selected {% endif %}>Forestry, Fisheries, and Wildlife</option>
+<option value="French" {% if wiki_user.major == "French" %} selected {% endif %}>French</option>
+<option value="Geographic Information Science" {% if wiki_user.major == "Geographic Information Science" %} selected {% endif %}>Geographic Information Science</option>
+<option value="Geography" {% if wiki_user.major == "Geography" %} selected {% endif %}>Geography</option>
+<option value="German" {% if wiki_user.major == "German" %} selected {% endif %}>German</option>
+<option value="Globalization Studies" {% if wiki_user.major == "Globalization Studies" %} selected {% endif %}>Globalization Studies</option>
+<option value="Health and Rehabilitation Sciences General Information" {% if wiki_user.major == "Health and Rehabilitation Sciences General Information" %} selected {% endif %}>Health and Rehabilitation Sciences General Information</option>
+<option value="Health and Rehabilition Sciences, Undecided" {% if wiki_user.major == "Health and Rehabilition Sciences, Undecided" %} selected {% endif %}>Health and Rehabilition Sciences, Undecided</option>
+<option value="Health Information Management and Systems" {% if wiki_user.major == "Health Information Management and Systems" %} selected {% endif %}>Health Information Management and Systems</option>
+<option value="Health Professions Exploration" {% if wiki_user.major == "Health Professions Exploration" %} selected {% endif %}>Health Professions Exploration</option>
+<option value="Health Promotion, Nutrition, and Exercise Science" {% if wiki_user.major == "Health Promotion, Nutrition, and Exercise Science" %} selected {% endif %}>Health Promotion, Nutrition, and Exercise Science</option>
+<option value="Health Sciences Program" {% if wiki_user.major == "Health Sciences Program" %} selected {% endif %}>Health Sciences Program</option>
+<option value="Hebrew" {% if wiki_user.major == "Hebrew" %} selected {% endif %}>Hebrew</option>
+<option value="History" {% if wiki_user.major == "History" %} selected {% endif %}>History</option>
+<option value="History of Art" {% if wiki_user.major == "History of Art" %} selected {% endif %}>History of Art</option>
+<option value="Hospitality Management" {% if wiki_user.major == "Hospitality Management" %} selected {% endif %}>Hospitality Management</option>
+<option value="Human Development and Family Science" {% if wiki_user.major == "Human Development and Family Science" %} selected {% endif %}>Human Development and Family Science</option>
+<option value="Human Nutrition" {% if wiki_user.major == "Human Nutrition" %} selected {% endif %}>Human Nutrition</option>
+<option value="Human Resources" {% if wiki_user.major == "Human Resources" %} selected {% endif %}>Human Resources</option>
+<option value="Industrial and Systems Engineering" {% if wiki_user.major == "Industrial and Systems Engineering" %} selected {% endif %}>Industrial and Systems Engineering</option>
+<option value="Industrial Design" {% if wiki_user.major == "Industrial Design" %} selected {% endif %}>Industrial Design</option>
+<option value="Information Systems" {% if wiki_user.major == "Information Systems" %} selected {% endif %}>Information Systems</option>
+<option value="Insurance" {% if wiki_user.major == "Insurance" %} selected {% endif %}>Insurance</option>
+<option value="Interior Design" {% if wiki_user.major == "Interior Design" %} selected {% endif %}>Interior Design</option>
+<option value="International Business Administration" {% if wiki_user.major == "International Business Administration" %} selected {% endif %}>International Business Administration</option>
+<option value="International Studies" {% if wiki_user.major == "International Studies" %} selected {% endif %}>International Studies</option>
+<option value="Intro to Pre-Professional Programs" {% if wiki_user.major == "Intro to Pre-Professional Programs" %} selected {% endif %}>Intro to Pre-Professional Programs</option>
+<option value="Islamic Studies" {% if wiki_user.major == "Islamic Studies" %} selected {% endif %}>Islamic Studies</option>
+<option value="Italian" {% if wiki_user.major == "Italian" %} selected {% endif %}>Italian</option>
+<option value="Japanese" {% if wiki_user.major == "Japanese" %} selected {% endif %}>Japanese</option>
+<option value="Jewish Studies" {% if wiki_user.major == "Jewish Studies" %} selected {% endif %}>Jewish Studies</option>
+<option value="Journalism" {% if wiki_user.major == "Journalism" %} selected {% endif %}>Journalism</option>
+<option value="Korean" {% if wiki_user.major == "Korean" %} selected {% endif %}>Korean</option>
+<option value="Landscape Architecture" {% if wiki_user.major == "Landscape Architecture" %} selected {% endif %}>Landscape Architecture</option>
+<option value="Linguistics" {% if wiki_user.major == "Linguistics" %} selected {% endif %}>Linguistics</option>
+<option value="Logistics Management" {% if wiki_user.major == "Logistics Management" %} selected {% endif %}>Logistics Management</option>
+<option value="Management and Industry Exploration" {% if wiki_user.major == "Management and Industry Exploration" %} selected {% endif %}>Management and Industry Exploration</option>
+<option value="Marketing" {% if wiki_user.major == "Marketing" %} selected {% endif %}>Marketing</option>
+<option value="Materials Science and Engineering" {% if wiki_user.major == "Materials Science and Engineering" %} selected {% endif %}>Materials Science and Engineering</option>
+<option value="Mathematics" {% if wiki_user.major == "Mathematics" %} selected {% endif %}>Mathematics</option>
+<option value="Meat Science" {% if wiki_user.major == "Meat Science" %} selected {% endif %}>Meat Science</option>
+<option value="Mechanical Engineering" {% if wiki_user.major == "Mechanical Engineering" %} selected {% endif %}>Mechanical Engineering</option>
+<option value="Medical Dietetics" {% if wiki_user.major == "Medical Dietetics" %} selected {% endif %}>Medical Dietetics</option>
+<option value="Medical Laboratory Science" {% if wiki_user.major == "Medical Laboratory Science" %} selected {% endif %}>Medical Laboratory Science</option>
+<option value="Medieval and Renaissance Studies" {% if wiki_user.major == "Medieval and Renaissance Studies" %} selected {% endif %}>Medieval and Renaissance Studies</option>
+<option value="Microbiology" {% if wiki_user.major == "Microbiology" %} selected {% endif %}>Microbiology</option>
+<option value="Middle Childhood Education (pre-licensure)" {% if wiki_user.major == "Middle Childhood Education (pre-licensure)" %} selected {% endif %}>Middle Childhood Education (pre-licensure)</option>
+<option value="Modern Greek" {% if wiki_user.major == "Modern Greek" %} selected {% endif %}>Modern Greek</option>
+<option value="Molecular Genetics" {% if wiki_user.major == "Molecular Genetics" %} selected {% endif %}>Molecular Genetics</option>
+<option value="Music - Composition" {% if wiki_user.major == "Music - Composition" %} selected {% endif %}>Music - Composition</option>
+<option value="Music - Education" {% if wiki_user.major == "Music - Education" %} selected {% endif %}>Music - Education</option>
+<option value="Music - Jazz Studies" {% if wiki_user.major == "Music - Jazz Studies" %} selected {% endif %}>Music - Jazz Studies</option>
+<option value="Music - Musicology" {% if wiki_user.major == "Music - Musicology" %} selected {% endif %}>Music - Musicology</option>
+<option value="Music - Performance (orchestral instruments)" {% if wiki_user.major == "Music - Performance (orchestral instruments)" %} selected {% endif %}>Music - Performance (orchestral instruments)</option>
+<option value="Music - Performance (piano)" {% if wiki_user.major == "Music - Performance (piano)" %} selected {% endif %}>Music - Performance (piano)</option>
+<option value="Music - Theory" {% if wiki_user.major == "Music - Theory" %} selected {% endif %}>Music - Theory</option>
+<option value="Music - Voice" {% if wiki_user.major == "Music - Voice" %} selected {% endif %}>Music - Voice</option>
+<option value="Natural Resources Management" {% if wiki_user.major == "Natural Resources Management" %} selected {% endif %}>Natural Resources Management</option>
+<option value="Neuroscience" {% if wiki_user.major == "Neuroscience" %} selected {% endif %}>Neuroscience</option>
+<option value="Nursing" {% if wiki_user.major == "Nursing" %} selected {% endif %}>Nursing</option>
+<option value="Nursing (RN to BSN)" {% if wiki_user.major == "Nursing (RN to BSN)" %} selected {% endif %}>Nursing (RN to BSN)</option>
+<option value="Operations Management" {% if wiki_user.major == "Operations Management" %} selected {% endif %}>Operations Management</option>
+<option value="Pharmaceutical Sciences" {% if wiki_user.major == "Pharmaceutical Sciences" %} selected {% endif %}>Pharmaceutical Sciences</option>
+<option value="Philosophy" {% if wiki_user.major == "Philosophy" %} selected {% endif %}>Philosophy</option>
+<option value="Physical Education, Sport, and Physical Activity" {% if wiki_user.major == "Physical Education, Sport, and Physical Activity" %} selected {% endif %}>Physical Education, Sport, and Physical Activity</option>
+<option value="Physics" {% if wiki_user.major == "Physics" %} selected {% endif %}>Physics</option>
+<option value="Plant Health Management" {% if wiki_user.major == "Plant Health Management" %} selected {% endif %}>Plant Health Management</option>
+<option value="Plant Pathology" {% if wiki_user.major == "Plant Pathology" %} selected {% endif %}>Plant Pathology</option>
+<option value="Political Science" {% if wiki_user.major == "Political Science" %} selected {% endif %}>Political Science</option>
+<option value="Portuguese" {% if wiki_user.major == "Portuguese" %} selected {% endif %}>Portuguese</option>
+<option value="Pre-Dentistry" {% if wiki_user.major == "Pre-Dentistry" %} selected {% endif %}>Pre-Dentistry</option>
+<option value="Pre-Law" {% if wiki_user.major == "Pre-Law" %} selected {% endif %}>Pre-Law</option>
+<option value="Pre-Medicine" {% if wiki_user.major == "Pre-Medicine" %} selected {% endif %}>Pre-Medicine</option>
+<option value="Pre-Occupational Therapy" {% if wiki_user.major == "Pre-Occupational Therapy" %} selected {% endif %}>Pre-Occupational Therapy</option>
+<option value="Pre-Optometry" {% if wiki_user.major == "Pre-Optometry" %} selected {% endif %}>Pre-Optometry</option>
+<option value="Pre-Pharmacy" {% if wiki_user.major == "Pre-Pharmacy" %} selected {% endif %}>Pre-Pharmacy</option>
+<option value="Pre-Physical Therapy" {% if wiki_user.major == "Pre-Physical Therapy" %} selected {% endif %}>Pre-Physical Therapy</option>
+<option value="Pre-Veterinary Medicine" {% if wiki_user.major == "Pre-Veterinary Medicine" %} selected {% endif %}>Pre-Veterinary Medicine</option>
+<option value="Professional Golf Management" {% if wiki_user.major == "Professional Golf Management" %} selected {% endif %}>Professional Golf Management</option>
+<option value="Psychology" {% if wiki_user.major == "Psychology" %} selected {% endif %}>Psychology</option>
+<option value="Public Affairs" {% if wiki_user.major == "Public Affairs" %} selected {% endif %}>Public Affairs</option>
+<option value="Public Health" {% if wiki_user.major == "Public Health" %} selected {% endif %}>Public Health</option>
+<option value="Radiologic Sciences and Therapy" {% if wiki_user.major == "Radiologic Sciences and Therapy" %} selected {% endif %}>Radiologic Sciences and Therapy</option>
+<option value="Real Estate and Urban Analysis" {% if wiki_user.major == "Real Estate and Urban Analysis" %} selected {% endif %}>Real Estate and Urban Analysis</option>
+<option value="Religious Studies" {% if wiki_user.major == "Religious Studies" %} selected {% endif %}>Religious Studies</option>
+<option value="Respiratory Therapy" {% if wiki_user.major == "Respiratory Therapy" %} selected {% endif %}>Respiratory Therapy</option>
+<option value="Romance Studies" {% if wiki_user.major == "Romance Studies" %} selected {% endif %}>Romance Studies</option>
+<option value="Russian" {% if wiki_user.major == "Russian" %} selected {% endif %}>Russian</option>
+<option value="Science and Technology Exploration" {% if wiki_user.major == "Science and Technology Exploration" %} selected {% endif %}>Science and Technology Exploration</option>
+<option value="Sexuality Studies" {% if wiki_user.major == "Sexuality Studies" %} selected {% endif %}>Sexuality Studies</option>
+<option value="Social Sciences Air Transportation" {% if wiki_user.major == "Social Sciences Air Transportation" %} selected {% endif %}>Social Sciences Air Transportation</option>
+<option value="Social Work" {% if wiki_user.major == "Social Work" %} selected {% endif %}>Social Work</option>
+<option value="Sociology" {% if wiki_user.major == "Sociology" %} selected {% endif %}>Sociology</option>
+<option value="Spanish" {% if wiki_user.major == "Spanish" %} selected {% endif %}>Spanish</option>
+<option value="Speech and Hearing Science" {% if wiki_user.major == "Speech and Hearing Science" %} selected {% endif %}>Speech and Hearing Science</option>
+<option value="Sport Industry" {% if wiki_user.major == "Sport Industry" %} selected {% endif %}>Sport Industry</option>
+<option value="Sustainable Plant Systems" {% if wiki_user.major == "Sustainable Plant Systems" %} selected {% endif %}>Sustainable Plant Systems</option>
+<option value="Theatre" {% if wiki_user.major == "Theatre" %} selected {% endif %}>Theatre</option>
+<option value="University Exploration General Information" {% if wiki_user.major == "University Exploration General Information" %} selected {% endif %}>University Exploration General Information</option>
+<option value="Visual Communication Design" {% if wiki_user.major == "Visual Communication Design" %} selected {% endif %}>Visual Communication Design</option>
+<option value="Welding Engineering" {% if wiki_user.major == "Welding Engineering" %} selected {% endif %}>Welding Engineering</option>
+<option value="Women's, Gender, and Sexuality Studies"{% if wiki_user.major == "Women's, Gender, and Sexuality Studies" %} selected {% endif %}>Women's, Gender, and Sexuality Studies</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >辅修 Minor：</label>
+				<div class="controls">
+					<select name="minor">
+<option value="Accounting" {% if wiki_user.minor == "Accounting" %} selected {% endif %}>Accounting</option>
+<option value="Actuarial Science" {% if wiki_user.minor == "Actuarial Science" %} selected {% endif %}>Actuarial Science</option>
+<option value="Aeronautical and Astronautical Engineering" {% if wiki_user.minor == "Aeronautical and Astronautical Engineering" %} selected {% endif %}>Aeronautical and Astronautical Engineering</option>
+<option value="African American and African Studies" {% if wiki_user.minor == "African American and African Studies" %} selected {% endif %}>African American and African Studies</option>
+<option value="Agribusiness and Applied Economics" {% if wiki_user.minor == "Agribusiness and Applied Economics" %} selected {% endif %}>Agribusiness and Applied Economics</option>
+<option value="Agricultural Communication" {% if wiki_user.minor == "Agricultural Communication" %} selected {% endif %}>Agricultural Communication</option>
+<option value="Agricultural Systems Management" {% if wiki_user.minor == "Agricultural Systems Management" %} selected {% endif %}>Agricultural Systems Management</option>
+<option value="Agriculture, Exploring" {% if wiki_user.minor == "Agriculture, Exploring" %} selected {% endif %}>Agriculture, Exploring</option>
+<option value="Agriscience Education" {% if wiki_user.minor == "Agriscience Education" %} selected {% endif %}>Agriscience Education</option>
+<option value="Ancient History and Classics" {% if wiki_user.minor == "Ancient History and Classics" %} selected {% endif %}>Ancient History and Classics</option>
+<option value="Animal Sciences" {% if wiki_user.minor == "Animal Sciences" %} selected {% endif %}>Animal Sciences</option>
+<option value="Anthropological Sciences" {% if wiki_user.minor == "Anthropological Sciences" %} selected {% endif %}>Anthropological Sciences</option>
+<option value="Anthropology" {% if wiki_user.minor == "Anthropology" %} selected {% endif %}>Anthropology</option>
+<option value="Arabic" {% if wiki_user.minor == "Arabic" %} selected {% endif %}>Arabic</option>
+<option value="Architecture" {% if wiki_user.minor == "Architecture" %} selected {% endif %}>Architecture</option>
+<option value="Art" {% if wiki_user.minor == "Art" %} selected {% endif %}>Art</option>
+<option value="Art Education" {% if wiki_user.minor == "Art Education" %} selected {% endif %}>Art Education</option>
+<option value="Arts and Sciences General Information" {% if wiki_user.minor == "Arts and Sciences General Information" %} selected {% endif %}>Arts and Sciences General Information</option>
+<option value="Arts and Sciences, Undecided" {% if wiki_user.minor == "Arts and Sciences, Undecided" %} selected {% endif %}>Arts and Sciences, Undecided</option>
+<option value="Arts Management" {% if wiki_user.minor == "Arts Management" %} selected {% endif %}>Arts Management</option>
+<option value="Astronomy and Astrophysics" {% if wiki_user.minor == "Astronomy and Astrophysics" %} selected {% endif %}>Astronomy and Astrophysics</option>
+<option value="Athletic Training" {% if wiki_user.minor == "Athletic Training" %} selected {% endif %}>Athletic Training</option>
+<option value="Atmospheric Sciences" {% if wiki_user.minor == "Atmospheric Sciences" %} selected {% endif %}>Atmospheric Sciences</option>
+<option value="Aviation" {% if wiki_user.minor == "Aviation" %} selected {% endif %}>Aviation</option>
+<option value="Biochemistry" {% if wiki_user.minor == "Biochemistry" %} selected {% endif %}>Biochemistry</option>
+<option value="Biology" {% if wiki_user.minor == "Biology" %} selected {% endif %}>Biology</option>
+<option value="Biomedical Engineering" {% if wiki_user.minor == "Biomedical Engineering" %} selected {% endif %}>Biomedical Engineering</option>
+<option value="Biomedical Science" {% if wiki_user.minor == "Biomedical Science" %} selected {% endif %}>Biomedical Science</option>
+<option value="Business Administration General Information" {% if wiki_user.minor == "Business Administration General Information" %} selected {% endif %}>Business Administration General Information</option>
+<option value="Business Administration, Undecided" {% if wiki_user.minor == "Business Administration, Undecided" %} selected {% endif %}>Business Administration, Undecided</option>
+<option value="Chemical Engineering" {% if wiki_user.minor == "Chemical Engineering" %} selected {% endif %}>Chemical Engineering</option>
+<option value="Chemistry" {% if wiki_user.minor == "Chemistry" %} selected {% endif %}>Chemistry</option>
+<option value="Chinese" {% if wiki_user.minor == "Chinese" %} selected {% endif %}>Chinese</option>
+<option value="City and Regional Planning" {% if wiki_user.minor == "City and Regional Planning" %} selected {% endif %}>City and Regional Planning</option>
+<option value="Civil Engineering" {% if wiki_user.minor == "Civil Engineering" %} selected {% endif %}>Civil Engineering</option>
+<option value="Classics" {% if wiki_user.minor == "Classics" %} selected {% endif %}>Classics</option>
+<option value="Communication" {% if wiki_user.minor == "Communication" %} selected {% endif %}>Communication</option>
+<option value="Community Leadership" {% if wiki_user.minor == "Community Leadership" %} selected {% endif %}>Community Leadership</option>
+<option value="Comparative Studies" {% if wiki_user.minor == "Comparative Studies" %} selected {% endif %}>Comparative Studies</option>
+<option value="Computer and Information Science" {% if wiki_user.minor == "Computer and Information Science" %} selected {% endif %}>Computer and Information Science</option>
+<option value="Computer Science and Engineering" {% if wiki_user.minor == "Computer Science and Engineering" %} selected {% endif %}>Computer Science and Engineering</option>
+<option value="Construction Systems Management" {% if wiki_user.minor == "Construction Systems Management" %} selected {% endif %}>Construction Systems Management</option>
+<option value="Consumer and Family Financial Services" {% if wiki_user.minor == "Consumer and Family Financial Services" %} selected {% endif %}>Consumer and Family Financial Services</option>
+<option value="Criminology and Criminal Justice Studies" {% if wiki_user.minor == "Criminology and Criminal Justice Studies" %} selected {% endif %}>Criminology and Criminal Justice Studies</option>
+<option value="Culinary Science" {% if wiki_user.minor == "Culinary Science" %} selected {% endif %}>Culinary Science</option>
+<option value="Dance" {% if wiki_user.minor == "Dance" %} selected {% endif %}>Dance</option>
+<option value="Dental Hygiene" {% if wiki_user.minor == "Dental Hygiene" %} selected {% endif %}>Dental Hygiene</option>
+<option value="Dental Hygiene (baccalaureate completion program)" {% if wiki_user.minor == "Dental Hygiene (baccalaureate completion program)" %} selected {% endif %}>Dental Hygiene (baccalaureate completion program)</option>
+<option value="Early and Middle Childhood Studies" {% if wiki_user.minor == "Early and Middle Childhood Studies" %} selected {% endif %}>Early and Middle Childhood Studies</option>
+<option value="Earth Sciences" {% if wiki_user.minor == "Earth Sciences" %} selected {% endif %}>Earth Sciences</option>
+<option value="Economics" {% if wiki_user.minor == "Economics" %} selected {% endif %}>Economics</option>
+<option value="Education - Early Childhood Education" {% if wiki_user.minor == "Education - Early Childhood Education" %} selected {% endif %}>Education - Early Childhood Education</option>
+<option value="Education - Foreign Language Education" {% if wiki_user.minor == "Education - Foreign Language Education" %} selected {% endif %}>Education - Foreign Language Education</option>
+<option value="Education - Integrated Language Arts/English Education" {% if wiki_user.minor == "Education - Integrated Language Arts/English Education" %} selected {% endif %}>Education - Integrated Language Arts/English Education</option>
+<option value="Education - Middle Childhood Education" {% if wiki_user.minor == "Education - Middle Childhood Education" %} selected {% endif %}>Education - Middle Childhood Education</option>
+<option value="Education - Science and Mathematics Education" {% if wiki_user.minor == "Education - Science and Mathematics Education" %} selected {% endif %}>Education - Science and Mathematics Education</option>
+<option value="Education - Special Education" {% if wiki_user.minor == "Education - Special Education" %} selected {% endif %}>Education - Special Education</option>
+<option value="Education - Teaching English to Speakers of Other Languages" {% if wiki_user.minor == "Education - Teaching English to Speakers of Other Languages" %} selected {% endif %}>Education - Teaching English to Speakers of Other Languages</option>
+<option value="Education - Technical Education and Training" {% if wiki_user.minor == "Education - Technical Education and Training" %} selected {% endif %}>Education - Technical Education and Training</option>
+<option value="Electrical and Computer Engineering" {% if wiki_user.minor == "Electrical and Computer Engineering" %} selected {% endif %}>Electrical and Computer Engineering</option>
+<option value="Engineering General Information" {% if wiki_user.minor == "Engineering General Information" %} selected {% endif %}>Engineering General Information</option>
+<option value="Engineering Physics" {% if wiki_user.minor == "Engineering Physics" %} selected {% endif %}>Engineering Physics</option>
+<option value="Engineering, Undecided" {% if wiki_user.minor == "Engineering, Undecided" %} selected {% endif %}>Engineering, Undecided</option>
+<option value="English" {% if wiki_user.minor == "English" %} selected {% endif %}>English</option>
+<option value="Entomology" {% if wiki_user.minor == "Entomology" %} selected {% endif %}>Entomology</option>
+<option value="Environment and Natural Resources, Undecided" {% if wiki_user.minor == "Environment and Natural Resources, Undecided" %} selected {% endif %}>Environment and Natural Resources, Undecided</option>
+<option value="Environment, Economy, Development, and Sustainability" {% if wiki_user.minor == "Environment, Economy, Development, and Sustainability" %} selected {% endif %}>Environment, Economy, Development, and Sustainability</option>
+<option value="Environmental Engineering" {% if wiki_user.minor == "Environmental Engineering" %} selected {% endif %}>Environmental Engineering</option>
+<option value="Environmental Policy and Decision Making" {% if wiki_user.minor == "Environmental Policy and Decision Making" %} selected {% endif %}>Environmental Policy and Decision Making</option>
+<option value="Environmental Science" {% if wiki_user.minor == "Environmental Science" %} selected {% endif %}>Environmental Science</option>
+<option value="Evolution and Ecology" {% if wiki_user.minor == "Evolution and Ecology" %} selected {% endif %}>Evolution and Ecology</option>
+<option value="Exercise Science Education" {% if wiki_user.minor == "Exercise Science Education" %} selected {% endif %}>Exercise Science Education</option>
+<option value="Exploration, Undecided" {% if wiki_user.minor == "Exploration, Undecided" %} selected {% endif %}>Exploration, Undecided</option>
+<option value="Family and Consumer Sciences Education" {% if wiki_user.minor == "Family and Consumer Sciences Education" %} selected {% endif %}>Family and Consumer Sciences Education</option>
+<option value="Fashion and Retail Studies" {% if wiki_user.minor == "Fashion and Retail Studies" %} selected {% endif %}>Fashion and Retail Studies</option>
+<option value="Film Studies" {% if wiki_user.minor == "Film Studies" %} selected {% endif %}>Film Studies</option>
+<option value="Finance" {% if wiki_user.minor == "Finance" %} selected {% endif %}>Finance</option>
+<option value="Food Business Management" {% if wiki_user.minor == "Food Business Management" %} selected {% endif %}>Food Business Management</option>
+<option value="Food Science and Technology" {% if wiki_user.minor == "Food Science and Technology" %} selected {% endif %}>Food Science and Technology</option>
+<option value="Food, Agricultural, and Biological Engineering" {% if wiki_user.minor == "Food, Agricultural, and Biological Engineering" %} selected {% endif %}>Food, Agricultural, and Biological Engineering</option>
+<option value="Forestry, Fisheries, and Wildlife" {% if wiki_user.minor == "Forestry, Fisheries, and Wildlife" %} selected {% endif %}>Forestry, Fisheries, and Wildlife</option>
+<option value="French" {% if wiki_user.minor == "French" %} selected {% endif %}>French</option>
+<option value="Geographic Information Science" {% if wiki_user.minor == "Geographic Information Science" %} selected {% endif %}>Geographic Information Science</option>
+<option value="Geography" {% if wiki_user.minor == "Geography" %} selected {% endif %}>Geography</option>
+<option value="German" {% if wiki_user.minor == "German" %} selected {% endif %}>German</option>
+<option value="Globalization Studies" {% if wiki_user.minor == "Globalization Studies" %} selected {% endif %}>Globalization Studies</option>
+<option value="Health and Rehabilitation Sciences General Information" {% if wiki_user.minor == "Health and Rehabilitation Sciences General Information" %} selected {% endif %}>Health and Rehabilitation Sciences General Information</option>
+<option value="Health and Rehabilition Sciences, Undecided" {% if wiki_user.minor == "Health and Rehabilition Sciences, Undecided" %} selected {% endif %}>Health and Rehabilition Sciences, Undecided</option>
+<option value="Health Information Management and Systems" {% if wiki_user.minor == "Health Information Management and Systems" %} selected {% endif %}>Health Information Management and Systems</option>
+<option value="Health Professions Exploration" {% if wiki_user.minor == "Health Professions Exploration" %} selected {% endif %}>Health Professions Exploration</option>
+<option value="Health Promotion, Nutrition, and Exercise Science" {% if wiki_user.minor == "Health Promotion, Nutrition, and Exercise Science" %} selected {% endif %}>Health Promotion, Nutrition, and Exercise Science</option>
+<option value="Health Sciences Program" {% if wiki_user.minor == "Health Sciences Program" %} selected {% endif %}>Health Sciences Program</option>
+<option value="Hebrew" {% if wiki_user.minor == "Hebrew" %} selected {% endif %}>Hebrew</option>
+<option value="History" {% if wiki_user.minor == "History" %} selected {% endif %}>History</option>
+<option value="History of Art" {% if wiki_user.minor == "History of Art" %} selected {% endif %}>History of Art</option>
+<option value="Hospitality Management" {% if wiki_user.minor == "Hospitality Management" %} selected {% endif %}>Hospitality Management</option>
+<option value="Human Development and Family Science" {% if wiki_user.minor == "Human Development and Family Science" %} selected {% endif %}>Human Development and Family Science</option>
+<option value="Human Nutrition" {% if wiki_user.minor == "Human Nutrition" %} selected {% endif %}>Human Nutrition</option>
+<option value="Human Resources" {% if wiki_user.minor == "Human Resources" %} selected {% endif %}>Human Resources</option>
+<option value="Industrial and Systems Engineering" {% if wiki_user.minor == "Industrial and Systems Engineering" %} selected {% endif %}>Industrial and Systems Engineering</option>
+<option value="Industrial Design" {% if wiki_user.minor == "Industrial Design" %} selected {% endif %}>Industrial Design</option>
+<option value="Information Systems" {% if wiki_user.minor == "Information Systems" %} selected {% endif %}>Information Systems</option>
+<option value="Insurance" {% if wiki_user.minor == "Insurance" %} selected {% endif %}>Insurance</option>
+<option value="Interior Design" {% if wiki_user.minor == "Interior Design" %} selected {% endif %}>Interior Design</option>
+<option value="International Business Administration" {% if wiki_user.minor == "International Business Administration" %} selected {% endif %}>International Business Administration</option>
+<option value="International Studies" {% if wiki_user.minor == "International Studies" %} selected {% endif %}>International Studies</option>
+<option value="Intro to Pre-Professional Programs" {% if wiki_user.minor == "Intro to Pre-Professional Programs" %} selected {% endif %}>Intro to Pre-Professional Programs</option>
+<option value="Islamic Studies" {% if wiki_user.minor == "Islamic Studies" %} selected {% endif %}>Islamic Studies</option>
+<option value="Italian" {% if wiki_user.minor == "Italian" %} selected {% endif %}>Italian</option>
+<option value="Japanese" {% if wiki_user.minor == "Japanese" %} selected {% endif %}>Japanese</option>
+<option value="Jewish Studies" {% if wiki_user.minor == "Jewish Studies" %} selected {% endif %}>Jewish Studies</option>
+<option value="Journalism" {% if wiki_user.minor == "Journalism" %} selected {% endif %}>Journalism</option>
+<option value="Korean" {% if wiki_user.minor == "Korean" %} selected {% endif %}>Korean</option>
+<option value="Landscape Architecture" {% if wiki_user.minor == "Landscape Architecture" %} selected {% endif %}>Landscape Architecture</option>
+<option value="Linguistics" {% if wiki_user.minor == "Linguistics" %} selected {% endif %}>Linguistics</option>
+<option value="Logistics Management" {% if wiki_user.minor == "Logistics Management" %} selected {% endif %}>Logistics Management</option>
+<option value="Management and Industry Exploration" {% if wiki_user.minor == "Management and Industry Exploration" %} selected {% endif %}>Management and Industry Exploration</option>
+<option value="Marketing" {% if wiki_user.minor == "Marketing" %} selected {% endif %}>Marketing</option>
+<option value="Materials Science and Engineering" {% if wiki_user.minor == "Materials Science and Engineering" %} selected {% endif %}>Materials Science and Engineering</option>
+<option value="Mathematics" {% if wiki_user.minor == "Mathematics" %} selected {% endif %}>Mathematics</option>
+<option value="Meat Science" {% if wiki_user.minor == "Meat Science" %} selected {% endif %}>Meat Science</option>
+<option value="Mechanical Engineering" {% if wiki_user.minor == "Mechanical Engineering" %} selected {% endif %}>Mechanical Engineering</option>
+<option value="Medical Dietetics" {% if wiki_user.minor == "Medical Dietetics" %} selected {% endif %}>Medical Dietetics</option>
+<option value="Medical Laboratory Science" {% if wiki_user.minor == "Medical Laboratory Science" %} selected {% endif %}>Medical Laboratory Science</option>
+<option value="Medieval and Renaissance Studies" {% if wiki_user.minor == "Medieval and Renaissance Studies" %} selected {% endif %}>Medieval and Renaissance Studies</option>
+<option value="Microbiology" {% if wiki_user.minor == "Microbiology" %} selected {% endif %}>Microbiology</option>
+<option value="Middle Childhood Education (pre-licensure)" {% if wiki_user.minor == "Middle Childhood Education (pre-licensure)" %} selected {% endif %}>Middle Childhood Education (pre-licensure)</option>
+<option value="Modern Greek" {% if wiki_user.minor == "Modern Greek" %} selected {% endif %}>Modern Greek</option>
+<option value="Molecular Genetics" {% if wiki_user.minor == "Molecular Genetics" %} selected {% endif %}>Molecular Genetics</option>
+<option value="Music - Composition" {% if wiki_user.minor == "Music - Composition" %} selected {% endif %}>Music - Composition</option>
+<option value="Music - Education" {% if wiki_user.minor == "Music - Education" %} selected {% endif %}>Music - Education</option>
+<option value="Music - Jazz Studies" {% if wiki_user.minor == "Music - Jazz Studies" %} selected {% endif %}>Music - Jazz Studies</option>
+<option value="Music - Musicology" {% if wiki_user.minor == "Music - Musicology" %} selected {% endif %}>Music - Musicology</option>
+<option value="Music - Performance (orchestral instruments)" {% if wiki_user.minor == "Music - Performance (orchestral instruments)" %} selected {% endif %}>Music - Performance (orchestral instruments)</option>
+<option value="Music - Performance (piano)" {% if wiki_user.minor == "Music - Performance (piano)" %} selected {% endif %}>Music - Performance (piano)</option>
+<option value="Music - Theory" {% if wiki_user.minor == "Music - Theory" %} selected {% endif %}>Music - Theory</option>
+<option value="Music - Voice" {% if wiki_user.minor == "Music - Voice" %} selected {% endif %}>Music - Voice</option>
+<option value="Natural Resources Management" {% if wiki_user.minor == "Natural Resources Management" %} selected {% endif %}>Natural Resources Management</option>
+<option value="Neuroscience" {% if wiki_user.minor == "Neuroscience" %} selected {% endif %}>Neuroscience</option>
+<option value="Nursing" {% if wiki_user.minor == "Nursing" %} selected {% endif %}>Nursing</option>
+<option value="Nursing (RN to BSN)" {% if wiki_user.minor == "Nursing (RN to BSN)" %} selected {% endif %}>Nursing (RN to BSN)</option>
+<option value="Operations Management" {% if wiki_user.minor == "Operations Management" %} selected {% endif %}>Operations Management</option>
+<option value="Pharmaceutical Sciences" {% if wiki_user.minor == "Pharmaceutical Sciences" %} selected {% endif %}>Pharmaceutical Sciences</option>
+<option value="Philosophy" {% if wiki_user.minor == "Philosophy" %} selected {% endif %}>Philosophy</option>
+<option value="Physical Education, Sport, and Physical Activity" {% if wiki_user.minor == "Physical Education, Sport, and Physical Activity" %} selected {% endif %}>Physical Education, Sport, and Physical Activity</option>
+<option value="Physics" {% if wiki_user.minor == "Physics" %} selected {% endif %}>Physics</option>
+<option value="Plant Health Management" {% if wiki_user.minor == "Plant Health Management" %} selected {% endif %}>Plant Health Management</option>
+<option value="Plant Pathology" {% if wiki_user.minor == "Plant Pathology" %} selected {% endif %}>Plant Pathology</option>
+<option value="Political Science" {% if wiki_user.minor == "Political Science" %} selected {% endif %}>Political Science</option>
+<option value="Portuguese" {% if wiki_user.minor == "Portuguese" %} selected {% endif %}>Portuguese</option>
+<option value="Pre-Dentistry" {% if wiki_user.minor == "Pre-Dentistry" %} selected {% endif %}>Pre-Dentistry</option>
+<option value="Pre-Law" {% if wiki_user.minor == "Pre-Law" %} selected {% endif %}>Pre-Law</option>
+<option value="Pre-Medicine" {% if wiki_user.minor == "Pre-Medicine" %} selected {% endif %}>Pre-Medicine</option>
+<option value="Pre-Occupational Therapy" {% if wiki_user.minor == "Pre-Occupational Therapy" %} selected {% endif %}>Pre-Occupational Therapy</option>
+<option value="Pre-Optometry" {% if wiki_user.minor == "Pre-Optometry" %} selected {% endif %}>Pre-Optometry</option>
+<option value="Pre-Pharmacy" {% if wiki_user.minor == "Pre-Pharmacy" %} selected {% endif %}>Pre-Pharmacy</option>
+<option value="Pre-Physical Therapy" {% if wiki_user.minor == "Pre-Physical Therapy" %} selected {% endif %}>Pre-Physical Therapy</option>
+<option value="Pre-Veterinary Medicine" {% if wiki_user.minor == "Pre-Veterinary Medicine" %} selected {% endif %}>Pre-Veterinary Medicine</option>
+<option value="Professional Golf Management" {% if wiki_user.minor == "Professional Golf Management" %} selected {% endif %}>Professional Golf Management</option>
+<option value="Psychology" {% if wiki_user.minor == "Psychology" %} selected {% endif %}>Psychology</option>
+<option value="Public Affairs" {% if wiki_user.minor == "Public Affairs" %} selected {% endif %}>Public Affairs</option>
+<option value="Public Health" {% if wiki_user.minor == "Public Health" %} selected {% endif %}>Public Health</option>
+<option value="Radiologic Sciences and Therapy" {% if wiki_user.minor == "Radiologic Sciences and Therapy" %} selected {% endif %}>Radiologic Sciences and Therapy</option>
+<option value="Real Estate and Urban Analysis" {% if wiki_user.minor == "Real Estate and Urban Analysis" %} selected {% endif %}>Real Estate and Urban Analysis</option>
+<option value="Religious Studies" {% if wiki_user.minor == "Religious Studies" %} selected {% endif %}>Religious Studies</option>
+<option value="Respiratory Therapy" {% if wiki_user.minor == "Respiratory Therapy" %} selected {% endif %}>Respiratory Therapy</option>
+<option value="Romance Studies" {% if wiki_user.minor == "Romance Studies" %} selected {% endif %}>Romance Studies</option>
+<option value="Russian" {% if wiki_user.minor == "Russian" %} selected {% endif %}>Russian</option>
+<option value="Science and Technology Exploration" {% if wiki_user.minor == "Science and Technology Exploration" %} selected {% endif %}>Science and Technology Exploration</option>
+<option value="Sexuality Studies" {% if wiki_user.minor == "Sexuality Studies" %} selected {% endif %}>Sexuality Studies</option>
+<option value="Social Sciences Air Transportation" {% if wiki_user.minor == "Social Sciences Air Transportation" %} selected {% endif %}>Social Sciences Air Transportation</option>
+<option value="Social Work" {% if wiki_user.minor == "Social Work" %} selected {% endif %}>Social Work</option>
+<option value="Sociology" {% if wiki_user.minor == "Sociology" %} selected {% endif %}>Sociology</option>
+<option value="Spanish" {% if wiki_user.minor == "Spanish" %} selected {% endif %}>Spanish</option>
+<option value="Speech and Hearing Science" {% if wiki_user.minor == "Speech and Hearing Science" %} selected {% endif %}>Speech and Hearing Science</option>
+<option value="Sport Industry" {% if wiki_user.minor == "Sport Industry" %} selected {% endif %}>Sport Industry</option>
+<option value="Sustainable Plant Systems" {% if wiki_user.minor == "Sustainable Plant Systems" %} selected {% endif %}>Sustainable Plant Systems</option>
+<option value="Theatre" {% if wiki_user.minor == "Theatre" %} selected {% endif %}>Theatre</option>
+<option value="University Exploration General Information" {% if wiki_user.minor == "University Exploration General Information" %} selected {% endif %}>University Exploration General Information</option>
+<option value="Visual Communication Design" {% if wiki_user.minor == "Visual Communication Design" %} selected {% endif %}>Visual Communication Design</option>
+<option value="Welding Engineering" {% if wiki_user.minor == "Welding Engineering" %} selected {% endif %}>Welding Engineering</option>
+<option value="Women's, Gender, and Sexuality Studies"{% if wiki_user.minor == "Women's, Gender, and Sexuality Studies" %} selected {% endif %}>Women's, Gender, and Sexuality Studies</option>
+					</select>
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >人人主页：</label>
+				<div class="controls">
+					<input type="text" name="renren_link" class="border-radius-none input-med" placeholder="填入对应网址" value="{{ wiki_user.renren_link }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >Facebook：</label>
+				<div class="controls">
+					<input type="text" name="facebook_link" class="border-radius-none input-med" placeholder="填入对应网址" value="{{ wiki_user.facebook_link }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >Twitter：</label>
+				<div class="controls">
+					<input type="text" name="twitter_link" class="border-radius-none input-med" placeholder="填入对应网址" value="{{ wiki_user.twitter_link }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >LinkedIn：</label>
+				<div class="controls">
+					<input type="text" name="linkedin_link" class="border-radius-none input-med" placeholder="填入对应网址" value="{{ wiki_user.linkedin_link }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" >Weibo：</label>
+				<div class="controls">
+					<input type="text" name="weibo_link" class="border-radius-none input-med" placeholder="填入对应网址" value="{{ wiki_user.weibo_link }}">
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<button type="submit" class="btn-u">确定</button>
+				</div>
+			</div>
+		</form>
+		<p><a href="{% url 'ua:reset_password' user_id=wiki_user.pk %}">重设密码</a></p>
+	</div>
+</div>
+{% endblock %}

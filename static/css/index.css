@@ -1,0 +1,65 @@
+body{
+	background: url(../img/bg.png) center center;
+}
+#header{
+	text-align: center;
+}
+#header h1{
+	font-size: 20px;
+	font-weight: bold;
+	color: #7CD6D8;
+}
+#college-list{
+	width: 840px;
+	margin: auto;
+	margin-top: 40px;
+}
+#college-list li{
+	float: left;
+	display: inline;
+	margin-top: 10px;
+}
+.cover-box{
+	margin-top: 10px;
+	position: relative;
+	width: 90px;
+	height: 90px;
+	margin: auto;
+	background: url(../img/ie-sprites.png) no-repeat -140px -70px;
+}
+.cover-box img{
+	position: absolute;
+	left: 4px;
+	top: 3px;
+}
+.college-name{
+	display: block;
+	color: white;
+	text-shadow: 1px 1px 2px #7d552d;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+}
+.college-link{
+	padding-top: 10px;
+	width: 140px;
+	height: 130px;
+	display: inline-block;
+}
+.college-link:hover{
+	background: url(../img/ie-sprites.png) no-repeat 0 -70px;
+}
+#footer{
+	height: 80px;
+	position: fixed;
+	background: url(../img/footer-bg.png) repeat-x;
+	bottom: 0;
+	width: 100%;
+}
+#footer p{
+	text-align: center;
+}
+#footer a, #footer span{
+	font-size: 14px;
+	color: #fff;
+}

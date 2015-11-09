@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}添加词条 - 留学维基{% endblock %}
+{% block main %}
+			<div id="content" class="content full">	
+				<div class="container" style="margin-top: 30px;">
+					<div class="span8 entry-box">
+						<form method="post" name="wikiForm">
+						{%csrf_token%}
+							<input type="hidden" name="entry_id" value="{{form.instance.pk}}">
+							<ul class="nav nav-pills" style="margin-bottom: 10px;">
+								<li><input id="title" name="title" class="edit_title" placeholder="编辑词条标题" value="{{form.instance.title}}"></li>
+								<li class="active" style="float:right;"><a href="javascript:document.wikiForm.submit();" >保存编辑</a></li>
+							</ul>
+							<textarea id="redactor_content" name="content">
+							{{form.instance.content}}
+							</textarea>
+							<script type="text/javascript">
+							$(document).ready(
+								function(){
+									$('#redactor_content').redactor({ 
+										minHeight: 550,
+										imageUpload: '/redactor/upload/image/',
+										
+									});
+								}
+							);
+							</script>
+							<form>
+								<p><label>编辑词条标签:</label>
+								<input id="tags_1" type="text" class="tags" value="{% for tag in entry.tags.all %}{{tag}},{% endfor %}" /></p>
+							</form>							
+						</form>
+						
+					</div>
+					<div class="span2" style="margin-left: 40px;">
+						<div class="team-item thumbnail">
+							<p class="sidebar_header" style="border-bottom: 1px dotted #DDD;">相关附件</p>
+							{% for attach in entry.attachments.all %}							
+							<div class="contrib">
+								<a href="{{attach.url}}"><span>{{attach.filename|truncatechars:12}}</span></a>
+								<a href="#" class="delete" filename="{{ attach.filename }}"><span>X</span></a>
+							</div>															
+							{% endfor %}
+							
+							<div id="fileuploader">添加附件</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+{% endblock %}
+
+{% block additional %}	
+<script type="text/javascript">
+	//function to delete attachment
+	$('.delete').click(function (){
+		var filename = $(this).attr('filename');
+		var node = $(this).parent();
+		$.post("{% url 'wiki:delete' entry_id=form.instance.pk %}", 
+			{op: "delete", name: filename},
+			function (resp,textStatus, jqXHR) {
+				node.remove();
+				}
+			);
+	});	
+	</script>
+
+	<script type="text/javascript">
+	$("#fileuploader").uploadFile({
+	 url: "{% url 'wiki:upload' entry_id=form.instance.pk %}",
+     allowedTypes:"*", //allowedTypes:"png,gif,jpg,jpeg",
+	 multiple:true,
+	 fileName: "myfile",
+	 returnType: "json",
+	 showDone: false,
+	 showDelete: true,
+	 deleteCallback: function (data, pd) {
+		 for (var i = 0; i < data.length; i++) {
+			 $.post("{% url 'wiki:delete' entry_id=form.instance.pk %}", {op: "delete",name: data[i]},
+				 function (resp,textStatus, jqXHR) {
+					 //Show Message	
+					 alert("File Deleted");
+
+				 });
+		 }
+		 pd.statusbar.hide(); //You choice.
+	}
+	 });
+ </script>
+	<script type="text/javascript">
+		function onAddTag(tag) {
+			//alert("Added a tag: " + tag);
+			$.get(
+				'/wiki/add_tag/{{entry.pk}}/', 
+				{tag:tag},
+				function(data){
+				})
+		}
+		function onRemoveTag(tag) {
+			//alert("Removed a tag: " + tag);
+			$.get(
+				'/wiki/remove_tag/{{entry.pk}}/',
+				{tag:tag}, 
+				function(data){
+				})
+		}
+		function onChangeTag(input,tag) {
+		}
+
+		$(function() {
+			$('#tags_1').tagsInput({
+				width:'auto',
+				onAddTag:onAddTag,
+				onRemoveTag:onRemoveTag,
+				autocomplete_url:'/wiki/suggest_tag/',
+				'defaultText':'添加后回车',
+				//onChange: onChangeTag,
+			});
+		});
+	</script>
+{% endblock %}

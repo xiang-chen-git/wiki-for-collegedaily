@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}词条回溯 - 留学维基{% endblock %}
+{% block main %}
+					<div class="container" style="margin-top: 30px;">
+
+						<div class="span8 entry-box", >
+							<a href="{% url 'wiki:show' entry_id=entry.pk ver_id=cur_ver %}"><h2 class="short" style="border-bottom: 1px solid #DDD;">
+							{{entry.title}}</h2></a>
+
+							<p class="entry-body">
+							{{diff_html|safe}}
+							</p>
+						</div>
+
+						<div class="tabs span2" style="margin-left: 40px;">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#popularPosts" data-toggle="tab">最近修改</a></li>
+							</ul>
+							<div class="tab-content"
+							style="height:450px;line-height:3em;overflow-y:scroll;padding:5px;">
+								<div class="tab-pane active" id="popularPosts" >
+									<ul class="simple-post-list">
+									{% for ver in vlist %}
+									<li>
+									<div class="post-info">
+										<a href="{% url 'wiki:revert_entry' entry_id=ver.object_id_int ver_id=ver.revision_id %}">{{ver.revision.comment}}</a>
+										<a href="{% url 'ua:profile' user_id=ver.revision.user.pk %}">{{ver.revision.user.nickname}}</a><br />
+										{{ver.revision.date_created|date:"Y-m-d H:i:s"}}<br />
+										<form id="version{{ver.revision_id}}" action="{% url 'wiki:revert_entry' entry_id=ver.object_id_int ver_id=ver.revision_id %}" method="post">
+										{% csrf_token %}
+										
+											<a href="#" onclick="document.getElementById('version{{ver.revision_id}}').submit();">恢复至此修改</a>
+										
+										</form>
+									</div>
+									</li>
+									{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+{% endblock %}

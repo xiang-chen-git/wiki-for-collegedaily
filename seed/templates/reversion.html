@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}词条回溯 - 留学维基{% endblock %}
+{% block main %}
+				<div class="container" style="margin-top: 30px;">
+					<div class="span11">
+					<div class="row">
+						<div class="span10 entry-content" >
+							<h2 style="margin: 0 0 10px 0;">康奈尔大学</h2>
+						</div>
+						{% for ver in vlist %}
+						<div class="span10 bottom30 entry-content">
+							<div class="entry-title">
+							<a href="{% url 'wiki:revert_entry' entry_id=ver.object_id_int ver_id=ver.revision_id %}">于 {{ver.revision.date_created|date:"Y年m月d日 H:i"}} 修改</a></div>
+							<p>修改提交者：<a href="{% url 'ua:profile' user_id=ver.reversion.user.pk %}">{{ver.revision.user.nickname}}</a></p>
+							<p>注解: {{ver.revision.comment}}</p>
+							<form id="version{{ver.revision_id}}" action="{% url 'wiki:revert_entry' entry_id=ver.object_id_int ver_id=ver.revision_id %}" method="post">
+							{% csrf_token %}
+							<ul class="nav nav-pills" style="margin-bottom: 10px;">
+								<li class="active"><a href="#" onclick="document.getElementById('version{{ver.revision_id}}').submit();">恢复至此修改</a></li>
+							</form>
+							</ul>
+						</div>
+						{% endfor %}				
+					</div>
+				   </div>
+				   	<div class="pagination pagination-centered">
+								<ul>
+									<li><a href="#">«</a></li>
+									<li><a href="#">1</a></li>
+									<li><a href="#">2</a></li>
+									<li><a href="#">3</a></li>
+									<li><a href="#">4</a></li>
+									<li><a href="#">5</a></li>
+									<li><a href="#">»</a></li>
+								</ul>
+					</div>
+				</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "content_base.html" %}
+{% block title %}个人主页 - 留学维基{% endblock %}
+{% block rightcontent %}
+						<div class="tabs span8" style=" margin-left: 45px;">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#popularPosts" data-toggle="tab">最近创建的词条</a></li>
+								<li><a href="#recentPosts" data-toggle="tab">最近参与编辑的词条</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="popularPosts">
+									<ul class="simple-post-list">
+									{% for entry in wiki_user.created_entries.all %}
+										<li>
+											<div class="post-image">
+												<div class="thumbnail">
+													<a href="blog-single.html">
+														<img src="/static/img/blog/blog-thumb-3.jpg" alt="">
+													</a>
+												</div>
+											</div>
+											<div class="post-info">
+												<a href="{% url 'wiki:show' entry_id=entry.pk %}">{{entry.title}}</a>
+												<div class="post-meta">
+													{{entry.time_stamp|date:"Y-m-d H:i:s"}}
+												</div>
+											</div>
+                                            {% if wiki_user.pk == user.pk %}
+                                                <a href="{% url 'wiki:delete_entry' entry_id=entry.pk %}">删除</a>&nbsp;
+                                                <a href="{% url 'wiki:edit' entry_id=entry.pk %}">编辑</a>
+                                            {% endif %}
+										</li>
+									{% endfor %}
+									</ul>
+								</div>
+								<div class="tab-pane" id="recentPosts">
+									<ul class="simple-post-list">
+									{% for edit in wiki_user.edit_history.all %}
+										<li>
+											<div class="post-image">
+												<div class="thumbnail">
+													<a href="blog-single.html">
+														<img src="/static/img/blog/blog-thumb-1.jpg" alt="">
+													</a>
+												</div>
+											</div>
+											<div class="post-info">
+												<a href="{% url 'wiki:show' entry_id=edit.entry.pk %}">{{edit.entry.title}}</a>
+												<div class="post-meta">
+													{{edit.time_stamp|date:"Y-m-d H:i:s"}}
+												</div>
+											</div>
+										</li>
+									{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>	
+{% endblock %}
+				

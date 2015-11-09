@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}验证 - 留学维基{% endblock %}
+{% block main %}
+				<section class="page-top">
+					<div class="container">
+						<div class="row">
+							<div class="span12">
+								<h2>邮箱验证</h2>
+							</div>
+						</div>
+					</div>
+				</section>				
+				
+				<div class="container" style="margin-top: 30px; min-height: 500px;">
+					<div style="margin: 0 auto; width: 45%; padding-top: 40px; min-height:85px;">
+						<form action="{% url 'ua:check' user_id=wiki_user.pk %}" class="log-page" method="post">
+						{% csrf_token %}
+            				<h3>发送验证邮件至您.edu邮箱</h3>    
+            				<div class="controls form-inline">
+                				<button class="btn-u center" type="submit">点击发送</button>
+            				</div>
+        				</form>
+					</div>
+				</div>
+{% endblock %}

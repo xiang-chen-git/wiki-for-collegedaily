@@ -1,0 +1,17 @@
+{% extends "content_base.html" %}
+{% block title %}站内信 - 留学维基{% endblock %}
+{% block rightcontent %}
+					<div class="span7 entry-box">
+                        {% if result != 0 %}
+                            <h2>错误：{{error}} </h2>
+                        {% else %}
+                        <p>发信人：{{msg.sender.nickname}}</p>
+                        <p>收信人：{{msg.receiver.nickname}}</p>
+                        <h2 class="short" style="border-bottom: 1px solid #DDD;">{{msg.title}}
+                        <p class="entry-body">
+                            {{msg.content|safe}}
+                        </p>    
+                        {% endif %}
+					</div>
+{% endblock %}
+

@@ -1,0 +1,55 @@
+{% extends "content_base.html" %}
+{% block title %}站内信 - 留学维基{% endblock %}
+{% block rightcontent %}
+						<div class="tabs span8" style=" margin-left: 45px;">
+							<ul class="nav nav-tabs">
+								<li class="active"><a href="#receivedMessage" data-toggle="tab">收件箱</a></li>
+								<li><a href="#sentMessage" data-toggle="tab">发件箱</a></li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane active" id="receivedMessage">
+									<ul class="simple-post-list">
+									{% for msg in wiki_user.messages_received.all %}
+										<li>
+											<div class="post-image">
+												<div class="thumbnail">
+													<a href="blog-single.html">
+														<img src="/static/img/blog/blog-thumb-3.jpg" alt="">
+													</a>
+												</div>
+											</div>
+											<div class="post-info">
+												<a href="{% url 'ua:view_msg' user_id=wiki_user.pk msg_id=msg.pk %}">{{msg.title}}</a>
+												<div class="post-meta">
+													{{msg.time_stamp|date:"Y-m-d H:i:s"}}
+												</div>
+											</div>
+										</li>
+									{% endfor %}
+									</ul>
+								</div>
+								<div class="tab-pane" id="sentMessage">
+									<ul class="simple-post-list">
+									{% for msg in wiki_user.messages_sent.all %}
+										<li>
+											<div class="post-image">
+												<div class="thumbnail">
+													<a href="blog-single.html">
+														<img src="/static/img/blog/blog-thumb-1.jpg" alt="">
+													</a>
+												</div>
+											</div>
+											<div class="post-info">
+												<a href="{% url 'ua:view_msg' user_id=wiki_user.pk msg_id=msg.pk %}">{{msg.title}}</a>
+												<div class="post-meta">
+													{{msg.time_stamp|date:"Y-m-d H:i:s"}}
+												</div>
+											</div>
+										</li>
+									{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>	
+{% endblock %}
+				

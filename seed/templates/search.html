@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}搜索结果 - 留学维基{% endblock %}
+{% block main %}
+				<div class="container" style="margin-top: 30px;">
+					<div class="span11">
+					<ul class="nav nav-pills sort-source lightborder" data-sort-id="portfolio" data-option-key="filter">
+						<li data-option-value="*" class=""><a href="#">所有词条</a></li>
+						<li data-option-value=".websites" class="active"><a href="/wiki/search/?query={{query}}">词条</a></li>
+						<li data-option-value=".logos"><a href="/wiki/search_by_tag/?query={{query}}">标签</a></li>
+					</ul>
+					<div class="row">
+					{% for entry in entry_list %}
+						<div class="span10 bottom30 entry-content">
+							<a href="{% url 'wiki:show' entry_id=entry.pk %}">
+							<div class="entry-title">{{entry.title}}</div>
+							</a>
+							<p>"{{entry.content|striptags|truncatewords:50}}"</p>
+							<ul class="nav nav-pills" style="margin-bottom: 10px;">
+								<li><a href="#"><span class="icon-plus color-blue"></span> {{entry.up_count}} 靠谱</a></li>
+								<li><a href="#"><span class="icon-minus color-blue"></span> {{entry.down_count}} 不靠谱</a></li>
+								<li class="active" style="float:right;"><a href="{% url 'wiki:show' entry_id=entry.pk %}">查看词条</a></li>
+							</ul>
+						</div>
+					{% endfor %}
+					</div>
+				   </div>
+				   	<div class="pagination pagination-centered">
+								<ul>
+									{% if entry_list.has_previous %}
+									<li><a href="?p={{ entry_list.previous_page_number }}">«</a></li>
+									{% endif %}
+									{% if entry_list.has_next %}
+									<li><a href="#">»</a></li>
+									{% endif %}
+								</ul>
+					</div>
+				</div>
+{% endblock %}			

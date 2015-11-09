@@ -1,0 +1,27 @@
+{% extends "content_base.html" %}
+{% block title %}站内信 - 留学维基{% endblock %}
+{% block rightcontent %}
+					<div class="span7 entry-box">
+                        <p>发送给：{{receiver.nickname}}</p>
+						<form method="post" name="msgForm">
+						{%csrf_token%}
+							<ul class="nav nav-pills" style="margin-bottom: 10px;">
+								<li><input id="title" name="title" class="edit_title" placeholder="站内信标题" value="{{form.instance.title}}"></li>
+								<li class="active" style="float:right;"><a href="javascript:document.msgForm.submit();" >发送</a></li>
+							</ul>
+							<textarea id="redactor_content" name="content">
+							{{form.instance.content}}
+							</textarea>
+							<script type="text/javascript">
+							$(document).ready(
+								function(){
+									$('#redactor_content').redactor({ 
+										minHeight: 250,
+										imageUpload: '/redactor/upload/image/',});
+								}
+							);
+							</script>
+						</form>
+					</div>
+{% endblock %}
+
